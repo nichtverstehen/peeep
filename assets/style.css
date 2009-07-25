@@ -1,0 +1,52 @@
+body { width: 30em; margin: 5em auto;
+	background: #eee; font: normal 1em sans-serif; }
+#doc { padding-bottom: 14px; background: url(shadow.gif) bottom center no-repeat; }
+.box { border: 1px solid #999; background: #fff; }
+.box2 { border: 3px solid #ff5; padding: 1.2em; overflow: hidden; }
+a { color: #00f; }
+a.js { border-bottom: 1px dashed #00f; text-decoration: none; }
+.first { margin-top: 0; }
+
+.footer { font-size: .6em; text-align: center; color: #999; margin-top: -10px; }
+.footer a { color: #666; }
+
+h1 { font: bold italic 14pt Arial, Helvetica, sans-serif; text-shadow: 1px 1px 3px #cb5;  }
+#doc h1 { background: #ff5; color: #333; margin: -1.2em -1.2em 1em; padding: .3em .5em .2em; }
+.tagline { float: right; font-weight: normal; font-size: .8em; color: #999; margin: -1.2em -1.2em 0 0; text-shadow: none; }
+.tagline a { color: inherit; }
+
+h3 { font-weight: normal; font-size: 1.6em; margin: 1em 0 .5em; color: #449; text-shadow: 1px 1px 3px #ccc; }
+h3 a { color: inherit; }
+
+#upload { border-bottom: 1px solid #cb5; background: #ffc;
+	padding: .5em 1em; margin: -1.2em -1.2em 1em; }
+#url_line  input { width: 27em; }
+#url_line  button { width: 5em; font-weight: bold; margin-left: .5em; }
+#cookie { font-size: .8em; }
+#cookie a.js { display: none; font-style: italic; font-size: .8em; }
+#cookie.hide label, #cookie.hide input { display: none; }
+#cookie.hide a.js { display: inline; }
+
+.info, .login, .latest { width: 48%; font-size: .9em; }
+.info ul { margin-top: 0; margin-bottom: 0; }
+.info { float: left; clear: left; }
+ul.support, ul.bonus { list-style: none; margin: 0; padding: 0; color: #666; }
+ul.support li, ul.bonus li, span.format { display: inline-block; font-size: .8em; vertical-align: top; margin-bottom: .5em; }
+ul.support li, ul.bonus li { width: 8em; }
+ul.support img, span.format img { float: left; margin-right: .3em; width: 16px; height: 16px; }
+ul.support em { display: block; font-size: .8em; font-style: normal; }
+ul.bonus li { background: url(tick.png) left center no-repeat; padding-left: 20px; width: 6em; }
+.latest, div.login { float: right; }
+
+ul.formats { list-style: none; margin: 0; padding: 0; }
+ul.formats li { display: inline-block; width: 8em; vertical-align: top; margin-bottom: .5em; padding-left: 22px; }
+ul.formats img { float: left; margin-left: -22px;}
+
+table { width: 100%; border-spacing: 0; font-size: .9em; }
+td { border-bottom: 1px solid #eee; padding: .2em .5em; }
+tr:hover { background: #fafafa; }
+
+/* IE */
+body { _position: absolute; _left: 50%; _margin-left: -21em; }
+.tagline a { _color: #999; }
+h3 a { _color: #449; }
