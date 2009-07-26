@@ -41,6 +41,11 @@ def createControls(html, page, cache, act):
 	twittershare = "http://twitter.com/home?status="+urllib.quote(url);
 	gmailshare = "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=&su=" + "%5Bppeepp%5D%20Get%20a%20link" + "&body=" + 'Hi!%0A%0AYour%20friend%20shared%20this%20link%20with%20you:%0A'+urllib.quote(url)+'%0A%0A%0A--%0APPEEPP%2C%20more%20than%20a%20url%20shortener%0Ahttp://www.ppeepp.net/' + "&zx=BITLY&shva=1&disablechatbrowsercheck=1&ui=1"
 	fbshare = 'http://www.facebook.com/sharer.php?u='+urllib.quote(url)+"&t="+'%5Bppeepp%5D'
+	analytics = '''<script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script>
+<script type="text/javascript">
+try { var pageTracker = _gat._getTracker("UA-836471-6"); pageTracker._trackPageview(); }
+catch(err) {}</script>'''
 	
 	controls = '''<!--PPEEPP--><style type="text/css"> 
 	html { margin-top: 23px!important; } body { _margin-top: 23px!important; }
@@ -87,12 +92,8 @@ def createControls(html, page, cache, act):
 		<div class="original_link"><a href="%(url)s">%(url)s</a></div>
 	</div></div>
 	
-<script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script>
-<script type="text/javascript">
-try { var pageTracker = _gat._getTracker("UA-836471-6"); pageTracker._trackPageview(); }
-catch(err) {}</script>
-
+	%(analytics)s
+	
 	<!--/PPEEPP-->'''
 	ctx = {
 		'ppeepp': ADDRESS,
@@ -101,6 +102,7 @@ catch(err) {}</script>
 		'twittershare': twittershare,
 		'gmailshare': gmailshare,
 		'fbshare': fbshare,
+		'analytics': analytics,
 		'url': cgi.escape(page.url.encode('utf-8'), True),
 		'token': tools.token(page),
 	}
