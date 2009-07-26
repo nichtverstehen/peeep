@@ -85,7 +85,15 @@ def createControls(html, page, cache, act):
 		</div>
 		<div class="mode_switch">%(cached)s | %(actual)s</div>
 		<div class="original_link"><a href="%(url)s">%(url)s</a></div>
-	</div></div><!--/PPEEPP-->'''
+	</div></div>
+	
+<script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script>
+<script type="text/javascript">
+try { var pageTracker = _gat._getTracker("UA-836471-6"); pageTracker._trackPageview(); }
+catch(err) {}</script>
+
+	<!--/PPEEPP-->'''
 	ctx = {
 		'ppeepp': ADDRESS,
 		'id': id,
