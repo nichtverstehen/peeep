@@ -1,4 +1,4 @@
-import cgi, time
+import cgi, time, os
 import models, tools
 from core import *
 from google.appengine.api import users
@@ -6,6 +6,10 @@ from google.appengine.api import users
 ID_SALT = "Don't you want to get a job?"
 
 def main():
+	if os.environ['REQUEST_METHOD'] != 'POST': # Forbidden
+		tools.redirect('/')
+		exit()
+		
 	form = cgi.FieldStorage()
 	r_url = form.getfirst("r_url")
 	r_cookie = form.getfirst("r_cookie")

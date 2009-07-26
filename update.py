@@ -5,22 +5,33 @@ from core import *
 from google.appengine.api import users
 
 def main():
-	user = users.get_current_user()
-	pages = models.Page.all().filter('owner =', user).filter('public >', 0).order('-public').order('-date').fetch(2000)
-	
-	line = '''<tr>
-		<td><a href="/%(id)s">%(url)s</a></td>
-		<td><form method="post" action="/update.php">
-			<input type="hidden" name="id" value="%(id)s/><input type="hidden" name="token" value="%(token)s"/>
-			<input type="image" src="/assets/del.png" alt="Remove"/>
-		</form></td>
-	</tr>'''
-	html = '''<table>
-		<colgroup><col/><col width="16"/></cols>\n'''
-	html += '\n'.join([line%{'id':p.key().name()[1:], 'url':cgi.escape(p.url), 'token': tools.token(p)} for p in pages])
-	html += '\n</table>'
-	
-	print template.render('Your pages', html, tagline='<a href="/">ppeepp</a>')
+	try:
+		if os.environ['REQUEST_METHOD'] != 'POST': # Forbidden
+			raise Forbidden
+		if users.get_current_user() == None:
+			raise Forbidden
+			
+		form = cgi.FieldStorage()
+		r_id = form.getfirst("id")
+		r_token = form.getfirst("token")
+		r_action = form.getfirst("action")
+		
+		if r_action != 'del':
+			raise Forbidden
+		page = models.Page.get_by_key_name('K'+r_id)
+		if page is None or page.public < 0: raise NotFound
+		
+		if r_token != tools.token(page):
+			raise Forbidden
+			
+		page.public = -1
+		page.put()
+		
+		tools.redirect('/my')
+	except Forbidden:
+		tools.printError("Forbidden", "You've just tried to do some evil thing. We didn't expect that of you.")
+	except NotFound:
+		tools.printError("Not found", "We think you are playing unfair.")
 	
 if __name__ == "__main__":
 	main()

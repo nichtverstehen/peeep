@@ -46,4 +46,4 @@ def logException():
 	log.error("%s %s\n%s", str(tp), unicode(exc), text)
 	
 def printError(title, text = ""):
-	print template.render("Error", '<h3 class="first">%s</h3><p>%s</p>' % (title, text), tagline='<a href="/">PPEEPP</a>')
+	print template.render("Error", '<h3 class="first">%s</h3><p>%s</p>' % (title, text), tagline='<a href="/">ppeepp</a>')

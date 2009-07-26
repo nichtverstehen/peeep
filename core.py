@@ -6,6 +6,10 @@ ADDRESS = 'http://localhost:8080/'
 class NotFound(Exception):
 	pass
 
+class Forbidden(Exception):
+	pass
+
+
 def fetch(page):
 	req = urllib2.Request(page.url)
 	if page.cookie:

@@ -14,7 +14,6 @@ u'''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/
 	$head
 </head>
 <body>
-
 <div id="doc">
 <div class="box"><div class="box2">
 
@@ -30,7 +29,7 @@ $content
 
 <div class="footer">
 © 2009, <a href="http://nichtverstehen.de">Cyril Nikolaev</a>.
-Favicon by <a href="http://pinvoke.com">pinvoke</a>.
+Icons by <a href="http://pinvoke.com">pinvoke</a>.
 </div> <!-- .footer -->
 
 </body>
