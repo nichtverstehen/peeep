@@ -1,7 +1,7 @@
 import cgi, time, os
 import models, tools
 from core import *
-from google.appengine.api import users
+from google.appengine.api import users, urlfetch
 
 ID_SALT = "Don't you want to get a job?"
 
@@ -23,8 +23,9 @@ def main():
 	
 	try:
 		content, contentType = fetch(page)
-	except urllib2.URLError:
-		tools.redirect('/?error=1')
+	except (urlfetch.Error,DownloadFail):
+		tools.printError('Download error', 'Sorry, we couldn\'t access to address you provided. Please try again in a few seconds.')
+		tools.logException()
 		exit()
 	
 	page.put()

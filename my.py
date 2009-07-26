@@ -22,7 +22,7 @@ def main():
 	html = '''<table>
 		<colgroup><col/><col width="16"/></cols>\n'''
 	if pages:
-		html += '\n'.join([line%{'id':p.key().name()[1:], 'url':cgi.escape(p.url), 'token': tools.token(p)} for p in pages])
+		html += '\n'.join([line%{'id':p.key().name()[1:], 'url':cgi.escape(p.url, True), 'token': tools.token(p)} for p in pages])
 	else:
 		html += "You haven't created any links using ppeepp."
 	html += '\n</table>'

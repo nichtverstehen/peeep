@@ -93,7 +93,7 @@ def createControls(html, page, cache, act):
 		'twittershare': twittershare,
 		'gmailshare': gmailshare,
 		'fbshare': fbshare,
-		'url': cgi.escape(page.url.encode('utf-8')),
+		'url': cgi.escape(page.url.encode('utf-8'), True),
 		'token': tools.token(page),
 	}
 	ctx['cached'] = cached % ctx

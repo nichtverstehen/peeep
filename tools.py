@@ -1,8 +1,7 @@
 import traceback, logging
-import sys
+import sys, hashlib
 import template
-import hashlib
-from google.appengine.api import users
+from google.appengine.api import urlfetch, users
 
 def md5(s):
 	if type(s) is unicode:
@@ -23,6 +22,20 @@ def token(page):
 	s+=SALT
 	
 	return md5(s)
+	
+def smartFetch(url, **kwargs):
+	"""UrlFetch following redirects and returning actual URL"""
+	a_url = url
+	c = 0
+	while True or c > 5:
+		req = urlfetch.fetch(a_url, follow_redirects=False, **kwargs)
+		if req.status_code in range(301, 303) or req.status_code == 307:
+			a_url = req.headers['location']
+		else:
+			break
+		c += 1
+			
+	return req, a_url
 	
 def isHtml(contentType):
 	return contentType.startswith('text/html') or contentType.startswith('application/xhtml+xml')

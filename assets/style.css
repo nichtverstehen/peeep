@@ -40,6 +40,10 @@ table { width: 100%; border-spacing: 0; font-size: .9em; }
 td { border-bottom: 1px solid #eee; padding: .2em .5em; }
 tr:hover { background: #fafafa; }
 
+.pseudobutton { display: inline-block; padding: .2em .4em .3em; background: #449; color: #fff; text-shadow: 1px 1px #333;
+	-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;  }
+.jscode { margin-top: -.5em; font: normal 8pt 'Courier New', monospace; }
+
 /* IE */
 /*body { _position: absolute; _left: 50%; _margin-left: -21em; }
 .tagline a { _color: #999; }

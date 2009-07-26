@@ -1,28 +1,40 @@
+import cgi
 import template
+from core import ADDRESS
 from google.appengine.api import users
 
 def main():
-	print render();
+	form = cgi.FieldStorage()
+	r_url = form.getfirst("r_url")
+	r_cookie = form.getfirst("r_cookie")
+	
+	print render(r_url, r_cookie);
 	
 	
-def render():
+def render(url = None, cookie = None):
+	if url is None: url = 'http://'
+	if cookie is None: cookie = ''
+	
 	user = users.get_current_user()
 	if user is None:
 		login_info = '<a href="'+users.create_login_url('/')+'">Login</a> \n'+\
 			'using <a href="https://www.google.com/accounts/NewAccount">Google Account</a> to manage your saved pages.'
 	else:
 		login_info = user.email()+u' (<a href="'+users.create_logout_url('/')+'">logout</a>). \n'+\
-			'<a href="/my">Manage your documents</a>'
+			'<a href="/my">Manage your links...</a>'
+			
+	js = "javascript:(function(){var enc=encodeURIComponent, a='%s?r_url='+enc(location.href)+'&r_cookie='+enc(document.cookie), m=function(){ if(!window.open(a)) location.href=a;}; m();})(); void 0" % ADDRESS
 	html = u'''\n\t<form method="post" id="upload" action="/upload.php" enctype=""application/x-www-form-urlencoded" accept-charset="utf-8">
 		<div id="url_line">
-			<input type="text" name="r_url" value="http://" /><button type="submit">Submit</button>
+			<input type="text" name="r_url" value="'''+cgi.escape(url, True)+'''" /><button type="submit">Submit</button>
 		</div>
 		<div id="cookie">
-			<label for="r_cookie">Cookie: </label> <input type="text" name="r_cookie" id="r_cookie" size="40" />
+			<label for="r_cookie">Cookie: </label>
+			<input type="text" name="r_cookie" id="r_cookie" size="40" value="'''+cgi.escape(cookie, True)+'''" />
 			<a href="#" title="Include authorization info..."
 				onclick="var e=document.getElementById('cookie');e.className=e.className=='hide'?'':'hide';return false"
 				class="js">Use cookie?</a>
-			<script type="text/javascript">document.getElementById('cookie').className = 'hide';</script>
+			<script type="text/javascript">if (document.getElementById('r_cookie').value == '') document.getElementById('cookie').className = 'hide';</script>
 		</div>
 	</form>
 	
@@ -47,7 +59,11 @@ def render():
 	
 	<h3>Bookmarklet</h3>
 	
-	<p>To create a public</p>
+	<p>
+	To make a link quickly drag this button to your bookmarks:
+	<a href="'''+cgi.escape(js)+'''" class="pseudobutton">Get ppeepp link</a>.</p>
+	<p>Or just paste this code to address field:</p>
+	<div class="jscode">'''+js+'''</div>
 	'''
 	
 	return template.render("ppeepp", html, tagline="persistent url shortener")
