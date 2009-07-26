@@ -25,10 +25,10 @@ def fetch(page):
 	return content, contentType
 	
 def preprocessHtml(html, url):
-	safe_url = cgi.escape(url, True)
-	html, n = re.subn('(?i)(<head\s*>)', '\\1<!--PPEEPP--><base href="%s"/><!--/PPEEPP-->'%safe_url, html, count=1)
+	safe_url = cgi.escape(url, True).encode('utf-8')
+	html, n = re.subn('(?:iL)(<head\\b[^>]*>)', '\\1<!--PPEEPP--><base href="%s"/><!--/PPEEPP-->'%safe_url, html, count=1)
 	if n == 0:
-		html, n = re.subn('(?i)(<html\s*>)', '\\1<!--PPEEPP--><head><base href="%s"/><!--/PPEPP-->'%safe_url, html, count=1)
+		html, n = re.subn('(?:iL)(<html\\b[^>]*>)', '\\1<!--PPEEPP--><head><base href="%s"/><!--/PPEPP-->'%safe_url, html, count=1)
 		
 		if n == 0:
 			html = '<!--PPEEPP--><base href="%s"/><!--/PPEPP-->'%safe_url + html
