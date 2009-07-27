@@ -41,7 +41,7 @@ def render(url = None, cookie = None):
 	<div class="login">'''+login_info+'''</div>
 	
 	<div class="info">
-		<p><strong>ppeepp</strong> is a URL shortener that can:</p>
+		<p><strong>peeep</strong> is a URL shortener that can:</p>
 		<ul class="features">
 		<li>
 			<h3>cache.</h3>
@@ -61,12 +61,12 @@ def render(url = None, cookie = None):
 	
 	<p>
 	To make a link quickly drag this button to your bookmarks:
-	<a href="'''+cgi.escape(js)+'''" class="pseudobutton">Get ppeepp link</a>.</p>
+	<a href="'''+cgi.escape(js)+'''" class="pseudobutton">Get peeep link</a>.</p>
 	<p>Or just paste this code to address field:</p>
 	<div class="jscode">'''+js+'''</div>
 	'''
 	
-	return template.render("ppeepp", html, tagline="persistent url shortener")
+	return template.render("peeep.us", html, tagline="persistent url shortener")
 
 if __name__ == "__main__":
 	main()

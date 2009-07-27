@@ -2,7 +2,7 @@ import re, cgi
 from google.appengine.api import urlfetch
 import tools
 
-ADDRESS = 'http://ppeeepp.appspot.com/'
+ADDRESS = 'http://www.peeep.us/'
 
 class NotFound(Exception):
 	pass
@@ -29,12 +29,12 @@ def fetch(page):
 	
 def preprocessHtml(html, url):
 	safe_url = cgi.escape(url, True).encode('utf-8')
-	html, n = re.subn('(?iL)(<head\\b[^>]*>)', '\\1<!--PPEEPP--><base href="%s"/><!--/PPEEPP-->'%safe_url, html, count=1)
+	html, n = re.subn('(?iL)(<head\\b[^>]*>)', '\\1<!--PEEEP--><base href="%s"/><!--/PEEEP-->'%safe_url, html, count=1)
 	if n == 0:
-		html, n = re.subn('(?iL)(<html\\b[^>]*>)', '\\1<!--PPEEPP--><head><base href="%s"/><!--/PPEPP-->'%safe_url, html, count=1)
+		html, n = re.subn('(?iL)(<html\\b[^>]*>)', '\\1<!--PEEEP--><head><base href="%s"/><!--/PEEEP-->'%safe_url, html, count=1)
 		
 		if n == 0:
-			html = '<!--PPEEPP--><base href="%s"/><!--/PPEPP-->'%safe_url + html
+			html = '<!--PEEEP--><base href="%s"/><!--/PEEEP-->'%safe_url + html
 		
 	return html
 	

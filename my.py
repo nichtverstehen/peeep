@@ -16,7 +16,7 @@ def main():
 		<td><form method="post" action="/update.php">
 			<input type="hidden" name="id" value="%(id)s"/><input type="hidden" name="token" value="%(token)s"/>
 			<input type="hidden" name="action" value="del"/>
-			<input type="image" src="/assets/del.png" alt="Remove" onclick="return confirm('Are you sure to remove the page from ppeepp?');"/>
+			<input type="image" src="/assets/del.png" alt="Remove" onclick="return confirm('Are you sure to remove the page from peeep?');"/>
 		</form></td>
 	</tr>'''
 	html = '''<table>
@@ -24,10 +24,10 @@ def main():
 	if pages:
 		html += '\n'.join([line%{'id':p.key().name()[1:], 'url':cgi.escape(p.url, True), 'token': tools.token(p)} for p in pages])
 	else:
-		html += "You haven't created any links using ppeepp."
+		html += "You haven't created any links using peeep."
 	html += '\n</table>'
 	
-	print template.render('Your pages', html, tagline='<a href="/">ppeepp</a>')
+	print template.render('Your pages', html, tagline='<a href="/">peeep</a>')
 	
 if __name__ == "__main__":
 	main()
