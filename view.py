@@ -35,9 +35,10 @@ def createControls(html, page, cache, act):
 	id = page.key().name().encode('utf-8')[1:]
 	url = ADDRESS+id
 	date = ' title="%s"'%cache.date.strftime('%a, %d %b %Y %H:%M:%S %Z') if cache else ''
+	date2 = ' <span style="font-size: .8em; color: #cb5; margin-left: 1em;">%s</span>'%cache.date.strftime('%d %b %Y') if cache and not act else ''
 	cached = '<a href="%(ppeepp)s%(id)s"'+date+'>Cached</a>' if act else '<a'+date+' class="act">Cached</a>'
 	actual = '<a href="%(ppeepp)s%(id)s/actual">Actual</a>' if not act else '<a class="act">Actual</a>'
-	mailshare = 'mailto:?subject=%5Bppeepp%5D%20Get%20a%20link&body=Hi!%0A%0AYour%20friend%20shared%20this%20link%20with%20you:%0A'+url+'%0A%0A%0A--%0APPEEPP%2C%20more%20than%20a%20url%20shortener%0Ahttp://www.ppeepp.net/'
+	mailshare = 'mailto:?subject=%5Bppeepp%5D%20Get%20a%20link&body=Hi!%0A%0AYour%20friend%20shared%20this%20link%20with%20you:%0A'+urllib.quote(url)+'%0A%0A%0A--%0APPEEPP%2C%20more%20than%20a%20url%20shortener%0Ahttp://www.ppeepp.net/'
 	twittershare = "http://twitter.com/home?status="+urllib.quote(url);
 	gmailshare = "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=&su=" + "%5Bppeepp%5D%20Get%20a%20link" + "&body=" + 'Hi!%0A%0AYour%20friend%20shared%20this%20link%20with%20you:%0A'+urllib.quote(url)+'%0A%0A%0A--%0APPEEPP%2C%20more%20than%20a%20url%20shortener%0Ahttp://www.ppeepp.net/' + "&zx=BITLY&shva=1&disablechatbrowsercheck=1&ui=1"
 	fbshare = 'http://www.facebook.com/sharer.php?u='+urllib.quote(url)+"&t="+'%5Bppeepp%5D'
@@ -46,6 +47,14 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 try { var pageTracker = _gat._getTracker("UA-836471-6"); pageTracker._trackPageview(); }
 catch(err) {}</script>'''
+	delete = '''<div style="float: right;">
+			<form method="post" action="%(ppeepp)supdate.php">
+				<input type="hidden" name="id" value="%(id)s"/><input type="hidden" name="token" value="%(token)s"/>
+				<input type="hidden" name="action" value="del"/>
+				<input type="image" src="%(ppeepp)sassets/del.png" alt="delete" title="remove page from ppeepp"
+					onclick="return confirm('Are you sure to remove the page from ppeepp?');"/>
+			</form>
+		</div>''' if page.owner == users.get_current_user() else ''
 	
 	controls = '''<!--PPEEPP--><style type="text/css"> 
 	html { margin-top: 23px!important; } body { _margin-top: 23px!important; }
@@ -73,14 +82,7 @@ catch(err) {}</script>'''
 	<div id="ppeepp_toolbar"><div style="padding: 3px 10px; border-bottom: 1px solid #cb5; overflow: hidden; zoom: 1;">
 		<a href="%(ppeepp)s"><img src="%(ppeepp)sassets/ppeepp.png" alt="ppeepp" title="ppeepp url shortener" 
 			style="float: left; border: 0;" width="16" height="16" /></a>
-		<div style="float: right;">
-			<form method="post" action="%(ppeepp)supdate.php">
-				<input type="hidden" name="id" value="%(id)s"/><input type="hidden" name="token" value="%(token)s"/>
-				<input type="hidden" name="action" value="del"/>
-				<input type="image" src="%(ppeepp)sassets/del.png" alt="delete" title="remove page from ppeepp"
-					onclick="return confirm('Are you sure to remove the page from ppeepp?');"/>
-			</form>
-		</div>
+		%(delete)s
 		<div class="shares" onmouseover="this.className='shares hover'" onmouseout="this.className='shares'">
 			<a class="share" href="%(mailshare)s"><img src="%(ppeepp)sassets/mail.png" alt="mail" title="Email this link"/></a>
 			<a class="share" href="%(gmailshare)s" target="_blank"><img src="%(ppeepp)sassets/gmail.png" alt="gmail" title="Send this link with GMail"/></a>
@@ -89,7 +91,7 @@ catch(err) {}</script>'''
 			<span class="grip"><img src="%(ppeepp)sassets/share.png" alt="Share..." /></span>
 		</div>
 		<div class="mode_switch">%(cached)s | %(actual)s</div>
-		<div class="original_link"><a href="%(url)s">%(url)s</a></div>
+		<div class="original_link"><a href="%(url)s">%(url)s</a>%(date2)s</div>
 	</div></div>
 	
 	%(analytics)s
@@ -98,6 +100,7 @@ catch(err) {}</script>'''
 	ctx = {
 		'ppeepp': ADDRESS,
 		'id': id,
+		'date2': date2,
 		'mailshare': mailshare,
 		'twittershare': twittershare,
 		'gmailshare': gmailshare,
@@ -106,6 +109,7 @@ catch(err) {}</script>'''
 		'url': cgi.escape(page.url.encode('utf-8'), True),
 		'token': tools.token(page),
 	}
+	ctx['delete'] = delete % ctx
 	ctx['cached'] = cached % ctx
 	ctx['actual'] = actual % ctx
 	controls = controls % ctx
