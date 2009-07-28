@@ -3,7 +3,7 @@ import models, tools
 from core import *
 from google.appengine.api import users, urlfetch
 
-ID_SALT = "Don't you want to get a job?"
+ID_SALT = u"Don't you want to get a job?"
 
 def main():
 	if os.environ['REQUEST_METHOD'] != 'POST': # Forbidden
@@ -13,12 +13,14 @@ def main():
 	form = cgi.FieldStorage()
 	r_url = form.getfirst("r_url")
 	r_cookie = form.getfirst("r_cookie")
+	r_url = unicode(r_url, 'utf-8') if r_url else None
+	r_cookie = unicode(r_cookie, 'utf-8') if r_cookie else None
 	
 	if not r_url or r_url == 'http://': # url not passed
 		tools.redirect('/')
 		exit()
 	
-	id = tools.md5(ID_SALT+r_url+str(time.time()))[:8]
+	id = tools.md5(ID_SALT+r_url+unicode(time.time()))[:8]
 	page = models.Page(key_name='K'+id, url=r_url, cookie=r_cookie)
 	
 	try:
@@ -29,8 +31,7 @@ def main():
 		exit()
 	
 	page.put()
-	cache = models.Cache(page=page, url=page.url, content=content, contentType=contentType)
-	cache.put()
+	updateCache(page, content, contentType)
 	
 	tools.redirect('/'+id)
 	

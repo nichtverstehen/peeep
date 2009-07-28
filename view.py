@@ -11,13 +11,14 @@ def main():
 		act = match.group(2) == '/actual'
 		
 		page = models.Page.get_by_key_name('K'+id)
-		if page is None or page.public < 1: raise NotFound
+		if page is None or page.public < 1: raise NotFound(id)
 		
-		cache = models.Cache.all().filter('page =', page).filter('url =', page.url).get()
+		cache = getCache(page)
 		if act:
 			content, contentType = fetch(page)
 		else:
-			if cache is None: raise NotFound
+			if cache is None:
+				cache = updateCache(page)
 			content, contentType = cache.content, cache.contentType
 		
 		if tools.isHtml(contentType):
@@ -34,8 +35,8 @@ def main():
 def createControls(html, page, cache, act):
 	id = page.key().name().encode('utf-8')[1:]
 	url = ADDRESS+id
-	date = ' title="%s"'%cache.date.strftime('%a, %d %b %Y %H:%M:%S %Z') if cache else ''
-	date2 = ' <span style="font-size: .8em; color: #cb5; margin-left: 1em;">%s</span>'%cache.date.strftime('%d %b %Y') if cache and not act else ''
+	date = ' title="%s"'%cache.date.strftime('%a, %d %b %Y %H:%M:%S UTC%z') if cache else ''
+	date2 = ' <span style="font-size: .8em; color: #cb5; margin-left: 1em;">%s</span>'%cache.date.strftime('%d %b %Y %H:%M') if cache and not act else ''
 	cached = '<a href="%(peeep)s%(id)s"'+date+'>Cached</a>' if act else '<a'+date+' class="act">Cached</a>'
 	actual = '<a href="%(peeep)s%(id)s/actual">Actual</a>' if not act else '<a class="act">Actual</a>'
 	mailshare = 'mailto:?subject=%5Bpeeep%5D%20Get%20a%20link&body=Hi!%0A%0AYour%20friend%20shared%20this%20link%20with%20you:%0A'+urllib.quote(url)+'%0A%0A%0A--%0Apeeep%2C%20more%20than%20a%20url%20shortener%0Ahttp://www.peeep.us/'
@@ -57,7 +58,7 @@ catch(err) {}</script>'''
 		</div>''' if page.owner == users.get_current_user() else ''
 	
 	controls = '''<!--PEEEP--><style type="text/css"> 
-	html { margin-top: 23px!important; } body { _margin-top: 23px!important; }
+	html { position: absolute; left: 0; top: 23px; width: 100%%; } body { _margin-top: 23px!important; }
 	#peeep_toolbar, #peeep_toolbar div, #peeep_toolbar input, #peeep_toolbar form { display: block; overflow: hidden;
 		margin: 0; padding: 0; text-align: left; zoom: 1; visibility: visible; line-height: 16px; }
 	#peeep_toolbar, #peeep_toolbar div, #peeep_toolbar input, #peeep_toolbar a, #peeep_toolbar span {
@@ -65,8 +66,8 @@ catch(err) {}</script>'''
 		text-transform: none; white-space: normal; background: none; font: normal 12px Arial, sans-serif; }
 	#peeep_toolbar img { border: 0; }
 	#peeep_toolbar a:link, #peeep_toolbar a:hover, #peeep_toolbar a:visited, #peeep_toolbar a:active, #peeep_toolbar a:focus { color: #00f; }
-	#peeep_toolbar { position:absolute; z-index: 1025; left:0; top:0; width:100%%; height: 23px;
-		 background: #ffc; }
+	#peeep_toolbar { position:absolute; z-index: 1025; left:0; top: -23px; width:100%%; height: 23px;
+		 background: #ffc; _top: 0; }
 	#peeep_toolbar .original_link { font-size: .9em; color: #999; float: left; margin-left: 2em; }
 	#peeep_toolbar .original_link a { color: #999; }
 	#peeep_toolbar .original_link a:visited { color: #bbb; }
