@@ -37,7 +37,7 @@ def createControls(html, page, cache, act):
 	url = ADDRESS+id
 	date = ' title="%s"'%cache.date.strftime('%a, %d %b %Y %H:%M:%S UTC%z') if cache else ''
 	date2 = ' <span style="font-size: .8em; color: #cb5; margin-left: 1em;">%s</span>'%cache.date.strftime('%d %b %Y %H:%M') if cache and not act else ''
-	cached = '<a href="%(peeep)s%(id)s"'+date+'>Cached</a>' if act else '<a'+date+' class="act">Cached</a>'
+	cached = '<a href="%(peeep)s%(id)s"'+date+'>Cached</a>' if act else '<a'+date+' class="act">Snapshot</a>'
 	actual = '<a href="%(peeep)s%(id)s/actual">Actual</a>' if not act else '<a class="act">Actual</a>'
 	mailshare = 'mailto:?subject=%5Bpeeep%5D%20Get%20a%20link&body=Hi!%0A%0AYour%20friend%20shared%20this%20link%20with%20you:%0A'+urllib.quote(url)+'%0A%0A%0A--%0Apeeep%2C%20more%20than%20a%20url%20shortener%0Ahttp://www.peeep.us/'
 	twittershare = "http://twitter.com/home?status="+urllib.quote(url);

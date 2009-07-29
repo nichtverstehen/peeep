@@ -28,7 +28,7 @@ $content
 </div> <!-- #doc -->
 
 <div class="footer">
-© 2009, <a href="http://nichtverstehen.de">Cyril Nikolaev</a>.
+© 2009, <a href="mailto:cyril7@gmail.com">Cyril Nikolaev</a>.
 Icons by <a href="http://pinvoke.com">pinvoke</a>.
 </div> <!-- .footer -->
 

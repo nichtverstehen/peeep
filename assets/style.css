@@ -33,8 +33,8 @@ h3 a { color: inherit; }
 
 .info { }
 ul.features { list-style: none; margin: 0; padding: 0; }
-.features p.first { display: inline; }
-.features .descr {  color: #999; margin-top: -.2em; }
+.features p.first {  }
+.features .descr { color: #999; margin-top: -1em; }
 .features h3 { display: inline; }
 
 table { width: 100%; border-spacing: 0; font-size: .9em; }

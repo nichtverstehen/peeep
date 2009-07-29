@@ -41,18 +41,19 @@ def render(url = None, cookie = None):
 	<div class="login">'''+login_info+'''</div>
 	
 	<div class="info">
-		<p><strong>peeep</strong> is a URL shortener that can:</p>
+		<p><strong>peeep</strong> is a next generation URL shortener.</p>
+		<h3>Why use it?</h3>
 		<ul class="features">
 		<li>
-			<h3>cache.</h3>
-			<p class="first">It stores a snapshot of current page state.</p>
-			<p class="descr">Your correspondents will be able to see what the page looked like exactly at the exact moment you took its short URL.</p>
+			<p class="first">To save a snapshot of current state of a webpage.</p>
+			<p class="descr">Peeep takes a snapshot of your page. So even if the author has altered content 
+			on the page, peeep will always remember, what it looked like at the moment you took its peep-url.</p>
 		</li>
 		<li>
-			<h3>use cookies.</h3>
-			<p class="first">You can share a page, protected from public access.</p>
-			<p class="descr">It securely stores cookies with your authentication information and you won't need to share your password with anyone just to
-			show some private page.</p>
+			<p class="first">To give links to protected pages normally viewable only by you.
+			<p class="descr">You can ask peeep to store your cookie information securely, so that it can show
+				desired page from your point of view. For example you can send your friend a link to a protected 
+				Facebook profile or forum topic without sharing your password with them.</p>
 		</li>
 		</ul>
 	</div>
