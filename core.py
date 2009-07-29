@@ -2,7 +2,7 @@ import re, cgi
 from google.appengine.api import urlfetch
 import models, tools
 
-ADDRESS = 'http://localhost:8080/'
+ADDRESS = 'http://www.peeep.us/'
 
 class NotFound(Exception):
 	pass

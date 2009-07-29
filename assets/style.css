@@ -10,12 +10,12 @@ a.js { border-bottom: 1px dashed #00f; text-decoration: none; }
 .footer { font-size: .8em; text-align: center; color: #999; margin-top: -10px; }
 .footer a { color: #666; }
 
-h1 { font: bold italic 1.6em Arial, Helvetica, sans-serif; text-shadow: 1px 1px 3px #cb5;  }
+h1 { font: bold italic 1.6em Arial, Helvetica, sans-serif; text-shadow: 1px 1px 1px #cb5;  }
 #doc h1 { background: #ff5; color: #333; margin: -1.2em -1.2em 1em; padding: .4em 1em .2em; }
 .tagline { float: right; font-weight: normal; color: #999; margin: -1em -.8em 0 0; text-shadow: none; }
 .tagline a { color: inherit; }
 
-h3 { font-weight: normal; font-size: 1.6em; margin: 1em 0 .5em; color: #449; text-shadow: 1px 1px 3px #ccc; }
+h3 { font-weight: normal; font-size: 1.6em; margin: 1em 0 .5em; color: #449; text-shadow: 1px 1px 1px #ccc; }
 h3 a { color: inherit; }
 
 #upload { border-bottom: 1px solid #cb5; background: #ffc; padding: .5em 1em; margin: -1.6em -1.2em 2em; }
@@ -27,7 +27,8 @@ h3 a { color: inherit; }
 #cookie.hide label, #cookie.hide input { display: none; }
 #cookie.hide a.js { display: inline; }
 
-.login { border-bottom: 1px solid #bbb; margin: -2em -1.2em 2em -1.2em; padding: .3em 1em .3em; color: #999; }
+.login { border-bottom: 1px solid #bbb; margin: -2em -1.2em 2em -1.2em; padding: .3em 1em .3em; color: #999;
+	background: url(formshadow.png) top center no-repeat; }
 .login a { color: #666; }
 
 .info { }
