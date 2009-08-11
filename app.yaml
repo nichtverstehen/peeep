@@ -6,9 +6,15 @@ api_version: 1
 handlers:
 - url: /
   script: index.py
+
+- url: /privacy
+  script: privacy.py
   
 - url: /upload.php
   script: upload.py
+  
+- url: /upload2.php
+  script: upload2.py
   
 - url: /update.php
   script: update.py
@@ -16,7 +22,7 @@ handlers:
 - url: /my/?
   script: my.py
   
-- url: /([0-9a-f]{8})(?:/actual)?/?
+- url: /([0-9a-f]{8})/?
   script: view.py
 
 # statics

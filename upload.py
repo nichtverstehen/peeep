@@ -1,7 +1,6 @@
 import cgi, time, os
 import models, tools
 from core import *
-from google.appengine.api import users, urlfetch
 
 ID_SALT = u"Don't you want to get a job?"
 
@@ -12,26 +11,34 @@ def main():
 		
 	form = cgi.FieldStorage()
 	r_url = form.getfirst("r_url")
-	r_cookie = form.getfirst("r_cookie")
+	r_content = form.getfirst("r_content")
+	r_type = form.getfirst("r_type")
 	r_url = unicode(r_url, 'utf-8') if r_url else None
-	r_cookie = unicode(r_cookie, 'utf-8') if r_cookie else None
+	r_content = r_content if r_content else None
+	r_type = unicode(r_type, 'utf-8') if r_type else None
 	
 	if not r_url or r_url == 'http://': # url not passed
 		tools.redirect('/')
 		exit()
-	
-	id = tools.md5(ID_SALT+r_url+unicode(time.time()))[:8]
-	page = models.Page(key_name='K'+id, url=r_url, cookie=r_cookie)
-	
+		
 	try:
-		content, contentType = fetch(page)
+		if not r_content or not r_type:
+			r_content, r_type, r_url = fetch(r_url)
 	except (urlfetch.Error,DownloadFail):
 		tools.printError('Download error', 'Sorry, we couldn\'t access to address you provided. Please try again in a few seconds.')
 		tools.logException()
 		exit()
 	
+	id = tools.md5(ID_SALT+r_url+unicode(time.time()))[:8]
+	page = models.Page(key_name='K'+id, url=r_url)
 	page.put()
-	updateCache(page, content, contentType)
+	
+	if tools.isHtml(r_type):
+		r_content = preprocessHtml(r_content, r_url)
+		
+	content = bz2.compress(r_content)
+	cache = models.Cache(page=page, url=tools.md5(unicode(page.url)), content=content, contentType=r_type)
+	cache.put()
 	
 	tools.redirect('/'+id)
 	

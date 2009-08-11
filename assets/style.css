@@ -1,5 +1,5 @@
 body { width: 40em; margin: 5em auto;
-	background: #eee; font: normal .8em sans-serif; }
+	background: #fff url(bg.png); font: normal .8em sans-serif; }
 #doc { padding-bottom: 14px; background: url(shadow.png) bottom center no-repeat; }
 .box { border: 1px solid #999; background: #fff; }
 .box2 { border: 3px solid #ff5; padding: 1.2em; overflow: hidden; }

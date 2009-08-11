@@ -75,8 +75,8 @@ def asciify_url(url, force_quote=False):
 	Author http://elsdoerfer.name/
 	http://blog.elsdoerfer.name/2008/12/12/opening-iris-in-python/
     """  
-    if type(url) is unicode:
-		url = url.encode('utf-8')
+    #if type(url) is unicode:
+	#	url = url.encode('utf-8')
   
     parts = urlparse.urlsplit(url)  
     if not parts.scheme or not parts.netloc:  

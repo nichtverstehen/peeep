@@ -1,8 +1,9 @@
-import re, cgi
+import re, cgi, bz2
 from google.appengine.api import urlfetch
 import models, tools
 
 ADDRESS = 'http://www.peeep.us/'
+ADDRESS2 = 'http://peeep.us/'
 
 class NotFound(Exception):
 	pass
@@ -11,49 +12,49 @@ class Forbidden(Exception):
 class DownloadFail(Exception):
 	pass
 
-
-def fetch(page):
-	headers = {}
-	if page.cookie:
-		headers['Cookie'] = page.cookie
+def decodeContent(content):
+	if content[0:2] == 'BZ':
+		return bz2.decompress(content)
+	return content
 		
-	req, a_url = tools.smartFetch(tools.asciify_url(page.url), headers=headers, allow_truncated=True, deadline=10)
-	if req.status_code != 200: raise DownloadFail(page.url, req.status_code)
+def fetch(url):
+	req, a_url = tools.smartFetch(tools.asciify_url(url), allow_truncated=True, deadline=10)
+	if req.status_code != 200: raise DownloadFail(url, req.status_code)
 	content = req.content
-	contentType = req.headers['Content-type'][:500]
+	contentType = req.headers['Content-type']
+	return content, contentType, a_url
 	
-	if tools.isHtml(contentType):
-		content = preprocessHtml(content, a_url)
-		
-	return content, contentType
-	
-def invalidateCache(page):
-	caches = models.Cache.all().filter('page =', page).fetch(2000)
-	for cache in caches:
-		cache.delete()
+#def invalidateCache(page):
+#	caches = models.Cache.all().filter('page =', page).fetch(2000)
+#	for cache in caches:
+#		cache.delete()
 		
 def getCache(page):
 	return models.Cache.all().filter('page =', page).filter('url =', tools.md5(unicode(page.url))).get()
 		
-def updateCache(page, content=None, contentType=None, invalidate=False):
-	if invalidate:
-		invalidateCache(page)
-	
-	if content is None:
-		content, contentType = fetch(page)
-		
-	cache = models.Cache(page=page, url=tools.md5(unicode(page.url)), content=content, contentType=contentType)
-	cache.put()
-	return cache
+#def updateCache(page, content=None, contentType=None, invalidate=False):
+#	if invalidate:
+#		invalidateCache(page)
+#	
+#	if content is None:
+#		content, contentType = fetch(page)
+#		
+#	content = bz2.compress(content)
+#	cache = models.Cache(page=page, url=tools.md5(unicode(page.url)), content=content, contentType=contentType)
+#	cache.put()
+#	return cache
 	
 def preprocessHtml(html, url):
 	safe_url = cgi.escape(url, True).encode('utf-8')
-	html, n = re.subn('(?iL)(<head\\b[^>]*>)', '\\1<!--PEEEP--><base href="%s"/><!--/PEEEP-->'%safe_url, html, count=1)
+	html, n = re.subn(r'(?iL)(<head\b[^>]*>)', r'\1<!--PEEEP--><base href="%s"/><!--/PEEEP-->'%safe_url, html, count=1)
 	if n == 0:
-		html, n = re.subn('(?iL)(<html\\b[^>]*>)', '\\1<!--PEEEP--><head><base href="%s"/><!--/PEEEP-->'%safe_url, html, count=1)
+		html, n = re.subn(r'(?iL)(<html\b[^>]*>)', r'\1<!--PEEEP--><head><base href="%s"/><!--/PEEEP-->'%safe_url, html, count=1)
 		
 		if n == 0:
-			html = '<!--PEEEP--><base href="%s"/><!--/PEEEP-->'%safe_url + html
+			html, n = re.subn(r'(?iL)(<!DOCTYPE\b[^>]*>)', r'\1<!--PEEEP--><head><base href="%s"/><!--/PEEEP-->'%safe_url, html, count=1)
+		
+			if n == 0:
+				html = '<!--PEEEP--><base href="%s"/><!--/PEEEP-->'%safe_url + html
 		
 	return html
 	

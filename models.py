@@ -5,7 +5,6 @@ class Page(db.Model):
 	date = db.DateTimeProperty(auto_now_add=True, required=True)
 	public = db.IntegerProperty(required=True, default=1)
 	owner = db.UserProperty(auto_current_user_add=True)
-	cookie = db.TextProperty()
 	
 class Cache(db.Model):
 	page = db.ReferenceProperty(Page, required=True)
