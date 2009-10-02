@@ -18,7 +18,10 @@ def decodeContent(content):
 	return content
 		
 def fetch(url):
-	req, a_url = tools.smartFetch(tools.asciify_url(url), allow_truncated=True, deadline=10)
+	try:
+		req, a_url = tools.smartFetch(tools.asciify_url(url), allow_truncated=True, deadline=10)
+	except urlfetch.Error, e:
+		raise DownloadFail(url, e)
 	if req.status_code != 200: raise DownloadFail(url, req.status_code)
 	content = req.content
 	contentType = req.headers['Content-type']

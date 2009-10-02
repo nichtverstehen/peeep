@@ -24,6 +24,10 @@ handlers:
   
 - url: /([0-9a-f]{8})/?
   script: view.py
+  
+- url: /remote_api
+  script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
+  login: admin
 
 # statics
 - url: /assets
