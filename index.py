@@ -29,7 +29,6 @@ def render(url = None):
 
 <div class="figure">
 	<a href="http://www.peeep.us/3b953848"><img src="/assets/untitled.png" alt="nytimes"/></a>
-	<div class="legend">nytimes.com on Sep 30, 2009</div>
 </div>
 
 <p>Peeep.us is more than a URL shortener. 
@@ -56,7 +55,7 @@ def render(url = None):
 <h2>Create links to protected pages</h2>
 
 <div class="bookmarklet">
-	<a href="'''+cgi.escape(js)+'''" class="pseudobutton"><span>Get peeep link</span></a>
+	<a href="'''+cgi.escape(js)+'''" class="pseudobutton"><div>Get peeep link</div></a>
 
 	<div>Drag this button to your
 		Bookmarks toolbar.

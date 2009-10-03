@@ -10,7 +10,8 @@ u'''<!DOCTYPE html>
 <head>
 	<title>$title</title>
 	<link rel="Shortcut Icon" href="/favicon.ico" type="image/x-icon" /> 
-	<link rel="stylesheet" type="text/css" href="/assets/style.css?2" />
+	<link rel="stylesheet" type="text/css" href="/assets/style.css?3" />
+	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie.css?1" /><![endif]-->
 	$head
 </head>
 <body>

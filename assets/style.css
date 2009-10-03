@@ -30,27 +30,31 @@ form#upload { display: block; background: #44AA00 url(panel.png) bottom repeat-x
 	#upload button  { background: url(button.png) right top no-repeat; border: 0; height: 22px; width: 15%; display: block; float: left; margin-top: 1px; }
 	#upload button * { vertical-align: middle; }
 
-.bookmarklet { float: right; text-align: center; width: 140px; margin-left: 3em; }
-.bookmarklet div { display: block; }
-.pseudobutton { display: block; background: #429D07 url(bookmarklet.png) no-repeat; width: 139px; height: 39px; text-decoration: none;}
-.pseudobutton span { opacity: 0; font-size: 38px; line-height: 1; margin: 0 -10em; text-align: center; }
-
-.sh { background-image: url(shadow.png); background-repeat: no-repeat; }
-.sh.bl { background-position: bottom left; margin-left: -24px; padding-left: 48px; }
-.sh.br { background-position: bottom right; margin-right: -30px; padding-right: 30px; padding-bottom: 60px; }
-.sh.tl { background-position: top left; margin-left: -48px; padding-left: 54px; }
-.sh.tr { background-position: top right; margin-right: -30px; padding-top: 24px; padding-right: 60px; margin-bottom: -30px; }
-
-.pers { background-image: url(greypanel.png); background-repeat: no-repeat; background-color: #A8A8A8; }
-.pers.bl { background-position: bottom left; margin-left: -54px; margin-bottom: -60px; padding-left: 54px; }
-.pers.br { background-position: bottom right; margin-right: -60px; padding-right: 60px; padding-bottom: 30px; }
-.pers.tl { background: none; border-top: 1px solid #666; margin: 0 -30px; }
-.pers.tr { background: none; border-top: 1px solid #C5C5C5; padding: 0 30px;}
+.bookmarklet { float: left; text-align: center; width: 140px; margin-right: 3em; }
+	.bookmarklet div { display: block; }
+	.pseudobutton { display: block; background: #429D07 url(bookmarklet.png) no-repeat; width: 139px; height: 39px; 
+		text-decoration: none; overflow: hidden; }
+	.pseudobutton div { font-size: 38px; line-height: 1; margin: 0 -10em; text-align: center;
+		-ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)'; opacity: 0; }
 
 .login { color: #ccc; line-height: 1; margin: .5em 0 1em; }
-.login b { display: block; font-size: 1.8em; color: #fff; font-weight: normal; }
-.login b a { color: #fff; }
-.login a { color: #ccc; }
+	.login b { display: block; font-size: 1.8em; color: #fff; font-weight: normal; }
+	.login b a { color: #fff; }
+	.login a { color: #ccc; }
+	
+/* shadow around whole page */
+.sh { background-image: url(shadow.png); background-repeat: no-repeat; }
+	.sh.bl { background-position: bottom left;  }
+	.sh.br { background-position: bottom right; margin-right: -30px; padding-right: 30px; padding-bottom: 60px; }
+	.sh.tl { background-position: top left; margin-left: -48px; padding-left: 54px; }
+	.sh.tr { background-position: top right; margin-right: -30px; padding-top: 24px; padding-right: 60px; margin-bottom: -30px; }
+
+/* Login panel backgrounds */
+.pers { background-image: url(greypanel.png); background-repeat: no-repeat; background-color: #A8A8A8; }
+	.pers.bl { background-position: bottom left; margin-left: -54px; margin-bottom: -60px; padding-left: 54px; }
+	.pers.br { background-position: bottom right; margin-right: -60px; padding-right: 60px; padding-bottom: 30px; }
+	.pers.tl { background: none; border-top: 1px solid #666; margin: 0 -30px; }
+	.pers.tr { background: none; border-top: 1px solid #C5C5C5; padding: 0 30px;}
 
 table { width: 100%; border-spacing: 0; font-size: .9em; }
 td { border-bottom: 1px solid #eee; padding: .2em .5em; }
