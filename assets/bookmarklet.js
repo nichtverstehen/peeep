@@ -1,0 +1,1 @@
+javascript: void(function(){var s=document.createElement('script'),sa='setAttribute';s[sa]('type','text/javascript');s[sa]('src','http://www.peeep.us/assets/send.js');document.body.appendChild(s); })();

@@ -21,6 +21,9 @@ def main():
 		tools.redirect('/')
 		exit()
 		
+	if not r_url.startswith('http://') and not r_url.startswith('https://'):
+		r_url = 'http://'+r_url
+		
 	try:
 		if not r_content or not r_type:
 			r_content, r_type, r_url = fetch(r_url)

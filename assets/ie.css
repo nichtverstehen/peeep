@@ -1,0 +1,5 @@
+.section, #upload .fieldset  { zoom: 1;}
+.header h1 { display: inline; }
+.header ul.menu { display: inline; }
+form#upload { display: inline-block; _display: block; }
+#upload button span { _background-image: url(peeep.png); }

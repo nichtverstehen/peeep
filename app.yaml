@@ -6,15 +6,9 @@ api_version: 1
 handlers:
 - url: /
   script: index.py
-
-- url: /privacy
-  script: privacy.py
   
 - url: /upload.php
   script: upload.py
-  
-- url: /upload2.php
-  script: upload2.py
   
 - url: /update.php
   script: update.py
@@ -25,9 +19,8 @@ handlers:
 - url: /([0-9a-f]{8})/?
   script: view.py
   
-- url: /remote_api
-  script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
-  login: admin
+- url: /pages/(\w+)/?
+  script: statics.py
 
 # statics
 - url: /assets
@@ -36,3 +29,10 @@ handlers:
 - url: /favicon.ico
   static_files: assets/favicon.ico
   upload: assets/favicon.ico
+  
+- url: /remote_api
+  script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
+  login: admin
+  
+- url: /.*
+  script: e404.py

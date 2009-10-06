@@ -1,0 +1,8 @@
+<!--div class="info">
+		<div class="buttons">
+			<a href="http://delicious.com/save" onclick="window.open('http://delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title), 'delicious','toolbar=no,width=550,height=550'); return false;"><img src="http://static.delicious.com/img/delicious.gif" height="16" width="16" alt="Delicious" /></a>
+			<a href="http://www.reddit.com/submit" onclick="window.location = 'http://www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="http://www.reddit.com/static/spreddit1.gif" alt="submit to reddit" border="0" /> </a>
+			<a href="http://digg.com/submit?phase=2&url=http://www.peeep.us/&title=New-generation%20URL%20shortener"><img src="http://digg.com/img/badges/16x16-digg-guy.gif" width="16" height="16" alt="Digg this" title="Digg this"/></a>
+			<a href="http://www.stumbleupon.com/submit?url=http://www.peeep.us/"> <img border="0" src="http://cdn.stumble-upon.com/images/16x16_su_solid.gif" alt=""></a>
+		</div>
+	</div-->

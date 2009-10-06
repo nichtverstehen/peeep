@@ -1,40 +1,48 @@
 ﻿# -*- coding utf8 -*-
 
-from string import Template
+import templet
+import statics_core
 
-def render(title, content, head = None, tagline = None):
-	t = Template(u'Content-type: text/html;charset=utf-8\r\n\r\n'+
+class PeeepTemplate(templet.UnicodeTemplate, statics_core.StaticsMixin): 
+	h1 = 'Peeep.us'
+	title_template = 'Peeep.us'
+	index = False
+	head_template = u''
+	http_headers = u''
+	content_template = 'Not found'
+	template = (u'Content-type: text/html;charset=utf-8\r\n${self.http_headers}\r\n'+
 	
-u'''<!DOCTYPE html>
+u'''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>$title</title>
+	<title>$<title_template></title>
 	<link rel="Shortcut Icon" href="/favicon.ico" type="image/x-icon" /> 
-	<link rel="stylesheet" type="text/css" href="/assets/style.css?3" />
+	<link rel="stylesheet" type="text/css" href="/assets/style.css?7" />
 	<!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="/assets/ie.css?1" /><![endif]-->
-	$head
+	$<head_template>
+	
 </head>
 <body>
 
 <div class="header">
-	<h1>$title</h1>
+	<h1>${ self.h1 if self.index else '<a href="/">'+self.h1+'</a>' }</h1>
 	
 	<ul class="menu">
-		<li><a>About</a></li>
+		${{ self.statics_template(vars(), category='main') }}
 	</ul>
 </div>
 
-<div id="doc" class="sh bl">
-<div class="sh br"><div class="sh tl"><div class="sh tr">
+<div id="doc" class="sh sbl">
+<div class="sh sbr"><div class="sh stl"><div class="sh str">
 
-$content
+$<content_template>
 
 </div></div></div></div> <!-- #doc -->
 
 <div class="footer">
-© 2009, <a href="mailto:cyril7@gmail.com">Cyril Nikolaev</a>.
-Icons by <a href="http://pinvoke.com">pinvoke</a>.
-<div> <!-- .footer -->
+	© 2009, Cyril Nikolaev.
+	Icons by <a href="http://pinvoke.com">pinvoke</a>.
+</div> <!-- .footer -->
 
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -49,11 +57,10 @@ pageTracker._trackPageview();
 </body>
 </html>''')
 
-	html = t.safe_substitute({
-		'title': title, 
-		'head': head if head is not None else '',
-		'content': content
-	})
-	
-	return html.encode('utf-8')
+	def utf8(self):
+		return unicode(self).encode('utf-8')
+
+class ErrorTemplate(PeeepTemplate): 
+	title_template = '$title'
+	content_template = u'''<h2>$title</h2>\n<p>$text</p>'''
 	

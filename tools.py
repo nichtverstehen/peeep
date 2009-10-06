@@ -59,7 +59,7 @@ def logException():
 	log.error("%s %s\n%s", str(tp), unicode(exc), text)
 	
 def printError(title, text = ""):
-	print template.render("Error", '<h3 class="first">%s</h3><p>%s</p>' % (title, text), tagline='<a href="/">peeep</a>')
+	print template.ErrorTemplate(title="Error", text=text).utf8()
 	
 def asciify_url(url, force_quote=False):  
     r"""Attempts to make a unicode url usuable with ``urllib/urllib2``. 
@@ -75,13 +75,13 @@ def asciify_url(url, force_quote=False):
 	Author http://elsdoerfer.name/
 	http://blog.elsdoerfer.name/2008/12/12/opening-iris-in-python/
     """  
-    #if type(url) is unicode:
-	#	url = url.encode('utf-8')
+    # if type(url) is unicode:
+	#	 url = url.encode('utf-8')
   
     parts = urlparse.urlsplit(url)  
-    if not parts.scheme or not parts.netloc:  
-        # apparently not an url  
-        return url  
+    # if not parts.scheme or not parts.netloc:  
+    #    apparently not an url  
+    #    return url  
   
     # idna-encode domain  
     hostname = parts.hostname.encode('idna')  
