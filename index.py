@@ -13,7 +13,6 @@ def main():
 class IndexTemplate(template.PeeepTemplate): 
 	index = True
 	bookmarklet = core.getBookmarklet()
-	head_template = u'<script type="text/javascript" src="/assets/prompt.js"></script>'
 	content_template = u'''\n\t
 <div class="section">
 
@@ -37,10 +36,6 @@ class IndexTemplate(template.PeeepTemplate):
 		<input type="text" class="text" name="r_url" id="r_url" value="${cgi.escape(url, True) if url is not None else ''}" />
 		<button type="submit"><span>submit</span></button>
 	</div>
-	<script type="text/javascript">//<![CDATA[
-		var input = document.getElementById('r_url');
-		if (input && Prompt) { input.value = ''; new Prompt(input, 'Paste URL here', ''); }
-	//]]></script>
 	</form>
 
 <div class="section">
@@ -78,6 +73,13 @@ class IndexTemplate(template.PeeepTemplate):
 	</div>
 
 </div></div></div></div> <!-- #personal -->
+
+<script type="text/javascript" src="/assets/prompt.js"></script>
+<script type="text/javascript">//<![CDATA[
+	var input = document.getElementById('r_url');
+	if (input && Prompt) { input.value = ''; new Prompt(input, 'Paste URL here', ''); }
+//]]></script>
+	
 '''
 	loggedin_template = u'''<b><a href="/my">Your pages</a></b>
 		${user.email()} (<a href=${xml.sax.saxutils.quoteattr(users.create_logout_url('/'))}>logout</a>)'''

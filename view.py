@@ -1,4 +1,6 @@
 import re, os, cgi, urllib
+import datetime
+
 import models, tools, e404
 from core import *
 from google.appengine.api import users
@@ -20,7 +22,12 @@ def main():
 		if tools.isHtml(contentType):
 			content = createControls(content, page, cache)
 			
-		print 'Content-type: ', contentType
+		# expires in a month
+		exp = datetime.datetime.utcnow() + datetime.timedelta(30)
+			
+		print 'Content-type:', contentType
+		print 'Last-modified:', cache.date.strftime("%a, %d %b %Y %H:%M:%S GMT")
+		print 'Expires:', exp.strftime("%a, %d %b %Y %H:%M:%S GMT")
 		print
 		print content
 		
