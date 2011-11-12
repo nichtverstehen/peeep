@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,11 +13,13 @@
    height="1000"
    id="svg2"
    version="1.1"
-   inkscape:version="0.47pre3 "
+   inkscape:version="0.46"
    sodipodi:docname="peeepus.svg"
    inkscape:export-filename="C:\Users\Cyril\Desktop\__.png"
    inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   inkscape:export-ydpi="90"
+   sodipodi:version="0.32"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs4">
     <linearGradient
@@ -1666,10 +1667,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="167.07385"
-     inkscape:cy="1270.3509"
+     inkscape:cx="310.17918"
+     inkscape:cy="637.57101"
      inkscape:document-units="px"
-     inkscape:current-layer="g2969-1"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1027"
      inkscape:window-height="690"
@@ -1862,12 +1863,12 @@
              id="rect4271"
              sodipodi:nodetypes="cccccc" />
           <image
-             y="164.00864"
-             x="555.04163"
+             y="164.36218"
+             x="555"
              id="image4441"
              height="16"
              width="16"
-             xlink:href="file:///D:/webdev/appengine/peeep/assets/peeep.png" />
+             xlink:href="../../assets/peeep_.png" />
           <text
              xml:space="preserve"
              style="font-size:11px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#4d4d4d;fill-opacity:1;stroke:none;font-family:Trebuchet MS;-inkscape-font-specification:Trebuchet MS Bold"
@@ -1955,7 +1956,7 @@
        x="384"
        id="image3041"
        width="256"
-       xlink:href="D:\webdev\appengine\peeep\assets\screenshot.png"
+       xlink:href="../../assets/screenshot.png"
        height="169" />
     <text
        xml:space="preserve"
