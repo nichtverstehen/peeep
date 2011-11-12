@@ -47,7 +47,7 @@ STATICS = {
 		
 	<dt>How can I contact you?</dt>
 		<dd><p>If you have questions, offers or bug reports send email to
-		<a href="mailto:peeep@snusmumrik.org.ru">peeep@snusmumrik.org.ru</a>.</p></dd>
+		<a href="mailto:support@peeep.us">support@peeep.us</a>.</p></dd>
 </dl>
 ''',
 	},
