@@ -55,7 +55,7 @@ catch(err) {}</script>'''
 				<input type="image" src="%(peeep)sassets/del.png" alt="delete" title="remove page from peeep"
 					onclick="return confirm('Are you sure to remove the page from peeep?');"/>
 			</form>
-		</div>''' if page.owner == users.get_current_user() and page.owner is not None else ''
+		</div>''' if users.is_current_user_admin() or (page.owner == users.get_current_user() and page.owner is not None) else ''
 	
 	controls = '''<!--PEEEP--><style type="text/css"> 
 	html { position: absolute; left: 0; top: 23px; width: 100%%; } body { _margin: 0; }

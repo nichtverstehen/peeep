@@ -21,7 +21,7 @@ def main():
 		page = models.Page.get_by_key_name('K'+r_id)
 		if page is None or page.public < 0: raise NotFound
 		
-		if page.owner != users.get_current_user():
+		if not users.is_current_user_admin() and page.owner != users.get_current_user():
 			raise Forbidden
 		if r_token != tools.token(page):
 			raise Forbidden
