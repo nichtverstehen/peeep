@@ -66,7 +66,7 @@ catch(err) {}</script>'''
 		text-transform: none; white-space: normal; background: none; font: normal 12px Arial, sans-serif; }
 	#peeep_toolbar img { border: 0; }
 	#peeep_toolbar a:link, #peeep_toolbar a:hover, #peeep_toolbar a:visited, #peeep_toolbar a:active, #peeep_toolbar a:focus { color: #00f; }
-	#peeep_toolbar { position:fixed; z-index: 1025; left:0; top: 0px; width:100%%; height: 23px;
+	#peeep_toolbar { position:fixed; z-index: 32768; left:0; top: 0px; width:100%%; height: 23px;
 		 background: #ffc; }
 	#peeep_toolbar .peeep_logo { float: left; margin-right: 1em; margin-bottom: -1em; }
 	#peeep_toolbar .original_link { font-size: .9em; color: #999; height: 16px; overflow: hidden; }
