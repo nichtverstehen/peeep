@@ -24,7 +24,7 @@ def main():
 	try:
 		if not r_content or not r_type:
 			r_content, r_type, r_url = fetch(r_url)
-	except (urlfetch.Error,DownloadFail):
+	except DownloadFail, e:
 		tools.printError('Download error', 'Sorry, we couldn\'t access to address you provided. Please try again in a few seconds.')
 		tools.logException()
 		exit()

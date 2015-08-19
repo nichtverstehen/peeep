@@ -10,7 +10,7 @@ u'''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/
 <head>
 	<title>$title</title>
 	<link rel="Shortcut Icon" href="/favicon.ico" type="image/x-icon" /> 
-	<link rel="stylesheet" type="text/css" href="/assets/style.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/style.css?1" />
 	$head
 </head>
 <body>

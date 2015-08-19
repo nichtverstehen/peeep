@@ -22,7 +22,7 @@ def render(url = None):
 			'<a href="/my">Manage your links...</a>'
 			
 	js = "javascript: void(function(){var s=document.createElement('script'),sa='setAttribute';s[sa]('type','text/javascript');s[sa]('src','%sassets/send.js');document.body.appendChild(s); })();" % ADDRESS
-	html = u'''\n\t<form method="post" id="upload" action="/upload.php" enctype=""application/x-www-form-urlencoded" accept-charset="utf-8">
+	html = u'''\n\t<form method="post" id="upload" action="/upload.php" enctype="application/x-www-form-urlencoded" accept-charset="utf-8">
 		<div id="url_line">
 			<input type="text" name="r_url" value="'''+cgi.escape(url, True)+'''" /><button type="submit">Submit</button>
 		</div>
@@ -31,6 +31,13 @@ def render(url = None):
 	<div class="login">'''+login_info+'''</div>
 	
 	<div class="info">
+		
+		<div class="buttons">
+			<a href="http://delicious.com/save" onclick="window.open('http://delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title), 'delicious','toolbar=no,width=550,height=550'); return false;"><img src="http://static.delicious.com/img/delicious.small.gif" height="10" width="10" alt="Delicious" /></a>
+			<a href="http://www.reddit.com/submit" onclick="window.location = 'http://www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false"> <img src="http://www.reddit.com/static/spreddit1.gif" alt="submit to reddit" border="0" /> </a>
+			<script src="http://digg.com/tools/diggthis.js" type="text/javascript"></script>
+		</div>
+		
 		<p><strong>peeep</strong> is a next generation URL shortener.</p>
 		<h3>Why use it?</h3>
 		<ul class="features">
