@@ -1,5 +1,5 @@
 import traceback, logging
-import sys, hashlib, urlparse, urllib
+import sys, hashlib, urlparse, urllib, time, Cookie
 import template, core
 from google.appengine.api import urlfetch, users
 
@@ -23,6 +23,16 @@ def token(page, user):
 		s += user.user_id()
 
 	return md5(s)
+
+def formatCookie(map, duration):
+	expires = time.strftime("%a, %d-%b-%Y %T GMT", time.gmtime(time.time() + duration))
+	cookies = Cookie.SimpleCookie()
+	for k, v in map.iteritems():
+		cookies[k] = v
+		cookies[k]["httponly"] = True
+		if duration > 0:
+			cookies[k]["expires"] = expires
+	return cookies.output()
 	
 def smartFetch(url, **kwargs):
 	"""UrlFetch following redirects and returning actual URL"""
@@ -47,9 +57,11 @@ def set_trace():
         stdout=sys.__stdout__)
     debugger.set_trace(sys._getframe().f_back)
 	
-def redirect(url):
+def redirect(url, extra_headers=[]):
 	print "Status: 302"
 	print "Location: ", url
+	for h in extra_headers:
+		print h
 	print
 	print "Redirecting to ", url
 
