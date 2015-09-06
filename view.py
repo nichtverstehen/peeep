@@ -38,7 +38,7 @@ def main():
 def createControls(html, page, cache):
 	id = page.key().name().encode('utf-8')[1:]
 	url = ADDRESS2+id
-	date2 = ' <div style="font-size: .8em; color: #cb5; margin: 2px 1em 0 0; float: left;">%s</div>'%cache.date.strftime('%d %b %Y %H:%M')
+	date2 = ' <div class="peeep_date">%s</div>'%cache.date.strftime('%d %b %Y %H:%M')
 	mailshare = 'mailto:?subject=%5Bpeeep%5D%20Get%20a%20link&body=Hi!%0A%0AYour%20friend%20shared%20this%20link%20with%20you:%0A'+urllib.quote(url)+'%0A%0A%0A--%0Apeeep%2C%20more%20than%20a%20url%20shortener%0Ahttp://www.peeep.us/'
 	twittershare = "http://twitter.com/home?status="+urllib.quote(url);
 	gmailshare = "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=&su=" + "%5Bpeeep%5D%20Get%20a%20link" + "&body=" + 'Hi!%0A%0AYour%20friend%20shared%20this%20link%20with%20you:%0A'+urllib.quote(url)+'%0A%0A%0A--%0Apeeep%2C%20more%20than%20a%20url%20shortener%0Ahttp://www.peeep.us/' + "&zx=BITLY&shva=1&disablechatbrowsercheck=1&ui=1"
@@ -64,10 +64,17 @@ catch(err) {}</script>'''
 	#peeep_toolbar, #peeep_toolbar div, #peeep_toolbar input, #peeep_toolbar a, #peeep_toolbar span {
 		outline: 0; border: 0; color: #999; vertical-align: baseline;
 		text-transform: none; white-space: normal; background: none; font: normal 12px Arial, sans-serif; }
+	#peeep_toolbar .peeep_wrapper { padding: 3px 10px; border-bottom: 1px solid #cb5; overflow: hidden; zoom: 1; }
 	#peeep_toolbar img { border: 0; }
 	#peeep_toolbar a:link, #peeep_toolbar a:hover, #peeep_toolbar a:visited, #peeep_toolbar a:active, #peeep_toolbar a:focus { color: #00f; }
 	#peeep_toolbar { position:fixed; z-index: 32768; left:0; top: 0px; width:100%%; height: 23px;
 		 background: #ffc; }
+	#peeep_toolbar .peeep_date { font-size: .8em; color: #cb5; margin: 2px 1em 0 0; float: left; }
+	#peeep_toolbar.peeep_verified { background-color: #efd; }
+	#peeep_toolbar.peeep_verified .peeep_wrapper { border-bottom: 1px solid #ab9; }
+	#peeep_toolbar.peeep_verified .shares:hover, #peeep_toolbar.peeep_verified .shares.hover { background-color: #dfc; }
+	#peeep_toolbar.peeep_verified .peeep_date { color: #6a4; }
+
 	#peeep_toolbar .peeep_logo { float: left; margin-right: 1em; margin-bottom: -1em; }
 	#peeep_toolbar .original_link { font-size: .9em; color: #999; height: 16px; overflow: hidden; }
 	#peeep_toolbar .original_link a { color: #999; }
@@ -79,7 +86,7 @@ catch(err) {}</script>'''
 	#peeep_toolbar .shares:hover .grip, #peeep_toolbar .shares.hover .grip { display: none; }
 	#peeep_toolbar .shares:hover .share, #peeep_toolbar .shares.hover .share { display: inline; }
 	</style>
-	<div id="peeep_toolbar"><div style="padding: 3px 10px; border-bottom: 1px solid #cb5; overflow: hidden; zoom: 1;">
+	<div id="peeep_toolbar" class="%(toolbar_class)s"><div class="peeep_wrapper">
 		<a href="%(peeep)s" class="peeep_logo"><img src="%(peeep)sassets/peeep.png" alt="peeep" title="peeep url shortener" 
 			width="16" height="16" /></a>
 		%(delete)s
@@ -108,6 +115,7 @@ catch(err) {}</script>'''
 		'analytics': analytics,
 		'url': cgi.escape(page.url.encode('utf-8'), True),
 		'token': tools.token(page),
+		'toolbar_class': 'peeep_verified' if cache.verified else '',
 	}
 	ctx['delete'] = delete % ctx
 	controls = controls % ctx

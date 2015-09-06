@@ -16,6 +16,7 @@ def main():
 	r_url = unicode(r_url, 'utf-8') if r_url else None
 	r_content = r_content if r_content else None
 	r_type = unicode(r_type, 'utf-8') if r_type else None
+	verified = False
 	
 	if not r_url or r_url == 'http://': # url not passed
 		tools.redirect('/')
@@ -27,6 +28,7 @@ def main():
 	try:
 		if not r_content or not r_type:
 			r_content, r_type, r_url = fetch(r_url)
+			verified = True
 	except DownloadFail, e:
 		tools.printError('Download error', 'Sorry, we couldn\'t access to address you provided. Please try again in a few seconds.')
 		tools.logException()
@@ -40,7 +42,7 @@ def main():
 		r_content = preprocessHtml(r_content, r_url)
 		
 	content = bz2.compress(r_content)
-	cache = models.Cache(page=page, url=tools.md5(unicode(page.url)), content=content, contentType=r_type)
+	cache = models.Cache(page=page, url=tools.md5(unicode(page.url)), content=content, contentType=r_type, verified=verified)
 	cache.put()
 	
 	tools.redirect('/'+id)

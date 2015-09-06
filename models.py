@@ -12,6 +12,7 @@ class Cache(db.Model):
 	content = db.BlobProperty(required=True)
 	contentType = db.StringProperty()
 	date = db.DateTimeProperty(auto_now_add=True, required=True)
+	verified = db.BooleanProperty()
 	
 class Counter(db.Model):
 	page = db.ReferenceProperty(Page, required=True)
