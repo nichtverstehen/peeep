@@ -8,7 +8,8 @@ def main():
 	try:
 		if os.environ['REQUEST_METHOD'] != 'POST': # Forbidden
 			raise Forbidden
-		if users.get_current_user() == None:
+		user = users.get_current_user()
+		if user == None:
 			raise Forbidden
 			
 		form = cgi.FieldStorage()
@@ -21,9 +22,9 @@ def main():
 		page = models.Page.get_by_key_name('K'+r_id)
 		if page is None or page.public < 0: raise NotFound
 		
-		if not users.is_current_user_admin() and page.owner != users.get_current_user():
+		if not users.is_current_user_admin() and page.owner != user:
 			raise Forbidden
-		if r_token != tools.token(page):
+		if r_token != tools.token(page, user):
 			raise Forbidden
 			
 		page.public = -1

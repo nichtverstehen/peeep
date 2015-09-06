@@ -12,9 +12,8 @@ def md5(s):
 	sig = md5.hexdigest()
 	return sig
 	
-def token(page):
+def token(page, user):
 	SALT = "I DO NOT WANT TO WORK"
-	user = users.get_current_user()
 	
 	s = page.key().name()
 	if user:

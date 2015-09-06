@@ -37,6 +37,7 @@ def main():
 	
 def createControls(html, page, cache):
 	id = page.key().name().encode('utf-8')[1:]
+	user = users.get_current_user()
 	url = ADDRESS2+id
 	date2 = ' <div class="peeep_date">%s</div>'%cache.date.strftime('%d %b %Y %H:%M')
 	mailshare = 'mailto:?subject=%5Bpeeep%5D%20Get%20a%20link&body=Hi!%0A%0AYour%20friend%20shared%20this%20link%20with%20you:%0A'+urllib.quote(url)+'%0A%0A%0A--%0Apeeep%2C%20more%20than%20a%20url%20shortener%0Ahttp://www.peeep.us/'
@@ -55,7 +56,7 @@ catch(err) {}</script>'''
 				<input type="image" src="%(peeep)sassets/del.png" alt="delete" title="remove page from peeep"
 					onclick="return confirm('Are you sure to remove the page from peeep?');"/>
 			</form>
-		</div>''' if users.is_current_user_admin() or (page.owner == users.get_current_user() and page.owner is not None) else ''
+		</div>''' if users.is_current_user_admin() or (page.owner == user and page.owner is not None) else ''
 	
 	controls = '''<!--PEEEP--><style type="text/css"> 
 	html { position: absolute; left: 0; top: 23px; width: 100%%; } body { _margin: 0; }
@@ -114,7 +115,7 @@ catch(err) {}</script>'''
 		'fbshare': fbshare,
 		'analytics': analytics,
 		'url': cgi.escape(page.url.encode('utf-8'), True),
-		'token': tools.token(page),
+		'token': tools.token(page, user),
 		'toolbar_class': 'peeep_verified' if cache.verified else '',
 	}
 	ctx['delete'] = delete % ctx

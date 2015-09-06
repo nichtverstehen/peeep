@@ -41,7 +41,7 @@ $<list_pages>\n\n '''
 				self.line_template(
 					id=p.key().name()[1:], 
 					url=cgi.escape(p.url, True),
-					token=tools.token(p),
+					token=tools.token(p, user),
 					date=p.date.strftime('%d %b %Y %H:%M'), 
 					**kwargs)
 			self.write('</table>');
