@@ -13,6 +13,9 @@ handlers:
   
 - url: /update.php
   script: update.py
+
+- url: /confirm.php
+  script: confirm.py
   
 - url: /my/?
   script: my.py

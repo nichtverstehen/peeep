@@ -1,4 +1,5 @@
 import cgi, time, os
+from google.appengine.api import users
 import models, tools
 from core import *
 
@@ -24,6 +25,13 @@ def main():
 		
 	if not r_url.startswith('http://') and not r_url.startswith('https://'):
 		r_url = 'http://'+r_url
+
+	user = users.get_current_user()
+	public = 1 if user is not None else 0
+	if user:
+		owner = user
+	else:
+		owner = generateAnonymous()
 		
 	try:
 		if not r_content or not r_type:
@@ -35,7 +43,7 @@ def main():
 		exit()
 	
 	id = tools.md5(ID_SALT+r_url+unicode(time.time()))[:8]
-	page = models.Page(key_name='K'+id, url=r_url)
+	page = models.Page(key_name='K'+id, url=r_url, owner=owner, public=public)
 	page.put()
 	
 	if tools.isHtml(r_type):
@@ -45,7 +53,14 @@ def main():
 	cache = models.Cache(page=page, url=tools.md5(unicode(page.url)), content=content, contentType=r_type, verified=verified)
 	cache.put()
 	
-	tools.redirect('/'+id)
+	if user:
+		tools.redirect('/'+id)
+	else:
+		cookies = {'anonymous_token': tools.token(page, owner)}
+		headers = [
+			tools.formatCookie(cookies, 60*60*24)
+		]
+		tools.redirect(users.create_login_url('/confirm.php?id=%s' % id), headers)
 	
 if __name__ == "__main__":
 	main()

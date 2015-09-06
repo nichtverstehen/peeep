@@ -1,5 +1,5 @@
-import re, cgi, bz2
-from google.appengine.api import urlfetch
+import re, cgi, bz2, uuid
+from google.appengine.api import urlfetch, users
 import models, tools
 import os
 
@@ -15,7 +15,10 @@ def getEffectiveAddress():
 
 def isAnonymous(user):
 	return user.email().endswith('@'+ANONYMOUS_DOMAIN)
-	
+
+def generateAnonymous():
+	return users.User('%s@%s' % (str(uuid.uuid1()), ANONYMOUS_DOMAIN))
+
 def getBookmarklet(html=False):
 	code = (u"javascript: void(function(){var s=document.createElement('script'),sa='setAttribute';s[sa]('type','text/javascript');"+
 		u"s[sa]('src','%sassets/send.js');document.body.appendChild(s); })();" % getEffectiveAddress())
