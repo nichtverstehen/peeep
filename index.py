@@ -14,6 +14,12 @@ class IndexTemplate(template.PeeepTemplate):
 	index = True
 	bookmarklet = core.getBookmarklet()
 	content_template = u'''\n\t
+<div class="notice">
+	Peeep.us was offline from 2015-05-28 till 2015-09-06 due to Roscomnadzor claim.
+	We restored normal functioning: all previously saved snapshots are available.
+	However from now on <strong>anonymous submissions are disallowed</strong>.
+</div>
+
 <div class="section">
 
 	<h2>Save snapshot of a web page forever!</h2>

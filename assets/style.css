@@ -26,6 +26,8 @@ a img { border: 0; }
 	
 .section { display: block; overflow: hidden; margin-bottom: 1em; }
 
+.notice { background: #a8a8a8; color: #fff; border-bottom: 1px solid #666; margin: 0 -30px 0 -30px; padding: 10px 30px 10px 30px; }
+
 form#upload { display: block; background: #44AA00 url(panel.png) bottom repeat-x; padding: 5px 6px;
 	border-top: 1px solid #82C655; border-bottom: 1px solid #24490C; margin: -1em 0 1em; }
 	#upload .fieldset { overflow: hidden; display: block; margin: 0 -18px 0 0; }
