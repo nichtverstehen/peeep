@@ -1,6 +1,6 @@
 import traceback, logging
 import sys, hashlib, urlparse, urllib
-import template
+import template, core
 from google.appengine.api import urlfetch, users
 
 def md5(s):
@@ -15,11 +15,13 @@ def md5(s):
 def token(page, user):
 	SALT = "I DO NOT WANT TO WORK"
 	
-	s = page.key().name()
-	if user:
+	s = SALT
+	s += page.key().name()
+	if user and core.isAnonymous(user):
+		s += user.email()
+	elif user and user.user_id():
 		s += user.user_id()
-	s+=SALT
-	
+
 	return md5(s)
 	
 def smartFetch(url, **kwargs):

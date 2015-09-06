@@ -5,12 +5,16 @@ import os
 
 ADDRESS = 'http://www.peeep.us/'
 ADDRESS2 = 'http://peeep.us/'
+ANONYMOUS_DOMAIN = 'anonymous'
 
 def getEffectiveAddress():
 	address = ADDRESS
 	if 'HTTP_HOST' in os.environ:
 		address = 'http://%s/' % os.environ['HTTP_HOST']
 	return address
+
+def isAnonymous(user):
+	return user.email().endswith('@'+ANONYMOUS_DOMAIN)
 	
 def getBookmarklet(html=False):
 	code = (u"javascript: void(function(){var s=document.createElement('script'),sa='setAttribute';s[sa]('type','text/javascript');"+
